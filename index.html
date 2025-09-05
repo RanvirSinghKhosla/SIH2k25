@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-en="Krishi Mitra - Your Smart Farming Assistant" data-hi="कृषि मित्र - आपका स्मार्ट खेती सहायक">Krishi Mitra - Your Smart Farming Assistant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Message Box for Alerts -->
+    <div id="message-box" class="message-box text-white"></div>
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between">
+            <a href="#" class="text-xl font-bold text-emerald-600 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span data-en="Krishi Mitra" data-hi="कृषि मित्र" class="text-emerald-600">Krishi Mitra</span>
+            </a>
+            <div class="mt-4 sm:mt-0 flex items-center gap-4">
+                <select id="language-select" class="rounded-lg border-gray-300 shadow-sm focus:border-emerald-500 focus:ring focus:ring-emerald-200 focus:ring-opacity-50">
+                    <option value="en">English</option>
+                    <option value="hi">हिन्दी</option>
+                </select>
+                <a href="#about" data-en="About" data-hi="परिचय" class="text-gray-600 hover:text-emerald-600 font-medium transition-colors">About</a>
+                <a href="#weather" data-en="Weather" data-hi="मौसम" class="text-gray-600 hover:text-emerald-600 font-medium transition-colors">Weather</a>
+                <a href="#soil-health" data-en="Soil" data-hi="मिट्टी" class="text-gray-600 hover:text-emerald-600 font-medium transition-colors">Soil</a>
+                <a href="#market-price" data-en="Market" data-hi="बाजार" class="text-gray-600 hover:text-emerald-600 font-medium transition-colors">Market</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+
+        <!-- Hero Section -->
+        <section class="text-center py-16">
+            <h1 class="text-4xl font-extrabold text-emerald-700 md:text-5xl lg:text-6xl leading-tight mb-4" data-en="Smart Farming for a Better Future" data-hi="बेहतर भविष्य के लिए स्मार्ट खेती">
+                Smart Farming for a <span class="text-emerald-500">Better Future</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-8" data-en="Get real-time, AI-powered advice on crops, soil, and pests. Boost your yield and income with Krishi Mitra." data-hi="फसलों, मिट्टी और कीटों पर एआई-संचालित वास्तविक समय की सलाह प्राप्त करें। कृषि मित्र के साथ अपनी उपज और आय बढ़ाएँ।">
+                Get real-time, AI-powered advice on crops, soil, and pests. Boost your yield and income with Krishi Mitra.
+            </p>
+        </section>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 py-12">
+            <!-- Voice Advisory Card -->
+            <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center">
+                <div class="p-4 bg-emerald-100 rounded-full mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 016 0v6a3 3 0 01-3 3z" />
+                    </svg>
+                </div>
+                <h2 data-en="Voice Advisory" data-hi="आवाज़ सलाह" class="text-2xl font-bold text-center mb-4">Voice Advisory</h2>
+                <p data-en="Ask any question about your crops, soil, or farming practices in your language." data-hi="अपनी फसल, मिट्टी या खेती के बारे में कोई भी प्रश्न अपनी भाषा में पूछें।" class="text-gray-500 text-center mb-6">
+                    Ask any question about your crops, soil, or farming practices in your language.
+                </p>
+                <div class="w-full text-center">
+                    <button id="voice-button" class="bg-emerald-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-emerald-700 transition-colors">
+                        <span id="voice-text" data-en="Tap to Speak" data-hi="बोलने के लिए टैप करें">Tap to Speak</span>
+                    </button>
+                    <div id="voice-output" class="mt-4 text-left p-4 bg-gray-100 rounded-lg hidden">
+                        <p id="user-transcript" class="text-gray-600 mb-2 font-medium"></p>
+                        <div id="loading-spinner-voice" class="hidden text-center">
+                            <div class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
+                                <span class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
+                            </div>
+                        </div>
+                        <div id="llm-response" class="text-gray-800"></div>
+                        <audio id="tts-audio" class="w-full mt-4 rounded-lg hidden" controls></audio>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Image Analysis Card -->
+            <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center">
+                <div class="p-4 bg-emerald-100 rounded-full mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.842-1.263a2 2 0 011.664-.89h.842a2 2 0 011.664.89l.842 1.263a2 2 0 001.664.89H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                </div>
+                <h2 data-en="Image Analysis" data-hi="छवि विश्लेषण" class="text-2xl font-bold text-center mb-4">Image Analysis</h2>
+                <p data-en="Upload a picture of your crop to get an instant health diagnosis." data-hi="तत्काल स्वास्थ्य निदान प्राप्त करने के लिए अपनी फसल की एक तस्वीर अपलोड करें।" class="text-gray-500 text-center mb-6">
+                    Upload a picture of your crop to get an instant health diagnosis.
+                </p>
+                <div class="w-full">
+                    <label class="block w-full text-center">
+                        <input type="file" id="image-upload" accept="image/*" class="hidden" />
+                        <span data-en="Upload Image" data-hi="छवि अपलोड करें" class="bg-emerald-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-emerald-700 transition-colors cursor-pointer">
+                            Upload Image
+                        </span>
+                    </label>
+                    <div id="image-preview" class="mt-6 flex flex-col items-center gap-4 hidden">
+                        <img id="uploaded-image" src="#" alt="Uploaded image" class="rounded-lg shadow-md max-h-64 object-cover" />
+                        <div id="loading-spinner-image" class="hidden text-center">
+                            <div class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
+                                <span class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
+                            </div>
+                        </div>
+                        <div id="image-analysis-response" class="w-full text-left p-4 bg-gray-100 rounded-lg mt-4 text-gray-800"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Weather Section -->
+        <section id="weather" class="text-center py-12 bg-white rounded-xl shadow-lg my-12">
+            <h2 class="text-3xl font-bold text-emerald-700 mb-6" data-en="Weather Forecast" data-hi="मौसम का पूर्वानुमान">Weather Forecast</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-emerald-50 rounded-lg p-6 shadow-sm">
+                    <h3 data-en="Today" data-hi="आज" class="font-bold text-xl text-emerald-800 mb-2">Today</h3>
+                    <p class="text-gray-600">
+                        <span data-en="25°C, Sunny" data-hi="25°C, धूपदार">25°C, Sunny</span>
+                    </p>
+                </div>
+                <div class="bg-emerald-50 rounded-lg p-6 shadow-sm">
+                    <h3 data-en="Tomorrow" data-hi="कल" class="font-bold text-xl text-emerald-800 mb-2">Tomorrow</h3>
+                    <p class="text-gray-600">
+                        <span data-en="28°C, Cloudy" data-hi="28°C, बादल छाए रहेंगे">28°C, Cloudy</span>
+                    </p>
+                </div>
+                <div class="bg-emerald-50 rounded-lg p-6 shadow-sm">
+                    <h3 data-en="Next 3 Days" data-hi="अगले 3 दिन" class="font-bold text-xl text-emerald-800 mb-2">Next 3 Days</h3>
+                    <p class="text-gray-600">
+                        <span data-en="Chance of Rain" data-hi="बारिश की संभावना">Chance of Rain</span>
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Soil Health Analysis Section -->
+        <section id="soil-health" class="text-center py-12 bg-white rounded-xl shadow-lg my-12">
+            <h2 class="text-3xl font-bold text-emerald-700 mb-6" data-en="Soil Health Analysis" data-hi="मिट्टी स्वास्थ्य विश्लेषण">Soil Health Analysis</h2>
+            <form id="soil-form" class="max-w-xl mx-auto space-y-4">
+                <div class="flex items-center gap-4">
+                    <label for="soil-ph" class="block text-gray-700 font-medium w-32" data-en="Soil pH:" data-hi="मिट्टी का pH:">Soil pH:</label>
+                    <input type="number" step="0.1" id="soil-ph" class="flex-grow rounded-lg border-gray-300 shadow-sm focus:border-emerald-500 focus:ring focus:ring-emerald-200 focus:ring-opacity-50" placeholder="e.g., 6.5">
+                </div>
+                <div class="flex items-center gap-4">
+                    <label for="soil-n" class="block text-gray-700 font-medium w-32" data-en="Nitrogen (N):" data-hi="नाइट्रोजन (N):">Nitrogen (N):</label>
+                    <input type="number" id="soil-n" class="flex-grow rounded-lg border-gray-300 shadow-sm focus:border-emerald-500 focus:ring focus:ring-emerald-200 focus:ring-opacity-50" placeholder="e.g., 250 (kg/ha)">
+                </div>
+                <div class="flex items-center gap-4">
+                    <label for="soil-p" class="block text-gray-700 font-medium w-32" data-en="Phosphorus (P):" data-hi="फास्फोरस (P):">Phosphorus (P):</label>
+                    <input type="number" id="soil-p" class="flex-grow rounded-lg border-gray-300 shadow-sm focus:border-emerald-500 focus:ring focus:ring-emerald-200 focus:ring-opacity-50" placeholder="e.g., 50 (kg/ha)">
+                </div>
+                <div class="flex items-center gap-4">
+                    <label for="soil-k" class="block text-gray-700 font-medium w-32" data-en="Potassium (K):" data-hi="पोटेशियम (K):">Potassium (K):</label>
+                    <input type="number" id="soil-k" class="flex-grow rounded-lg border-gray-300 shadow-sm focus:border-emerald-500 focus:ring focus:ring-emerald-200 focus:ring-opacity-50" placeholder="e.g., 180 (kg/ha)">
+                </div>
+                <button type="submit" class="w-full bg-emerald-600 text-white font-semibold py-3 rounded-full shadow-lg hover:bg-emerald-700 transition-colors" data-en="Get Recommendations" data-hi="सिफारिशें प्राप्त करें">Get Recommendations</button>
+            </form>
+            <div id="soil-result" class="mt-8 text-left p-6 bg-emerald-50 rounded-lg hidden">
+                <h3 class="font-bold text-lg text-emerald-800" data-en="Recommendations:" data-hi="सिफारिशें:">Recommendations:</h3>
+                <p id="soil-analysis-text" class="mt-2 text-gray-700"></p>
+            </div>
+        </section>
+
+        <!-- Market Price Section -->
+        <section id="market-price" class="text-center py-12 bg-white rounded-xl shadow-lg my-12">
+            <h2 class="text-3xl font-bold text-emerald-700 mb-6" data-en="Crop Market Prices" data-hi="फसल बाजार मूल्य">Crop Market Prices</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <div class="bg-gray-50 rounded-lg p-6 shadow-sm">
+                    <h3 class="font-bold text-xl mb-2" data-en="Wheat" data-hi="गेहूं">Wheat</h3>
+                    <p class="text-gray-700"><span data-en="Price:" data-hi="मूल्य:">Price:</span> <span class="text-lg font-bold text-emerald-600" data-en="₹2,125 / quintal" data-hi="₹2,125 / क्विंटल">₹2,125 / quintal</span></p>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-6 shadow-sm">
+                    <h3 class="font-bold text-xl mb-2" data-en="Paddy" data-hi="धान">Paddy</h3>
+                    <p class="text-gray-700"><span data-en="Price:" data-hi="मूल्य:">Price:</span> <span class="text-lg font-bold text-emerald-600" data-en="₹2,040 / quintal" data-hi="₹2,040 / क्विंटल">₹2,040 / quintal</span></p>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-6 shadow-sm">
+                    <h3 class="font-bold text-xl mb-2" data-en="Maize" data-hi="मक्का">Maize</h3>
+                    <p class="text-gray-700"><span data-en="Price:" data-hi="मूल्य:">Price:</span> <span class="text-lg font-bold text-emerald-600" data-en="₹1,962 / quintal" data-hi="₹1,962 / क्विंटल">₹1,962 / quintal</span></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="text-center py-12">
+            <h2 class="text-3xl font-bold text-emerald-700 mb-6" data-en="About Krishi Mitra" data-hi="कृषि मित्र के बारे में">About Krishi Mitra</h2>
+            <p class="text-gray-600 max-w-3xl mx-auto" data-en="Krishi Mitra is an AI-powered platform designed to empower small and marginal farmers in India. By providing real-time, actionable advice through voice and image analysis, we aim to increase crop yield, reduce costs, and improve the overall profitability of farming." data-hi="कृषि मित्र भारत में छोटे और सीमांत किसानों को सशक्त बनाने के लिए डिज़ाइन किया गया एक एआई-संचालित मंच है। आवाज और छवि विश्लेषण के माध्यम से वास्तविक समय, कार्रवाई योग्य सलाह प्रदान करके, हमारा लक्ष्य फसल की पैदावार बढ़ाना, लागत कम करना और खेती की समग्र लाभप्रदता में सुधार करना है।">
+                Krishi Mitra is an AI-powered platform designed to empower small and marginal farmers in India. By providing real-time, actionable advice through voice and image analysis, we aim to increase crop yield, reduce costs, and improve the overall profitability of farming.
+            </p>
+        </section>
+        
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 mt-12 text-center">
+        <div class="container mx-auto">
+            <p data-en="&copy; 2024 Krishi Mitra. Empowering Indian Farmers." data-hi="&copy; 2024 कृषि मित्र। भारतीय किसानों को सशक्त बनाना।">&copy; 2024 Krishi Mitra. Empowering Indian Farmers.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
